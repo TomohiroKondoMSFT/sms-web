@@ -1,0 +1,40 @@
+# SMS Migration Project — .gitignore
+
+## Visual Studio / C++ / MSBuild
+*.user
+*.suo
+*.sln.docstates
+.vs/
+x64/
+Debug/
+Release/
+*.pdb
+*.iobj
+*.ipdb
+*.obj
+*.pch
+*.recipe
+*.FileListAbsolute.txt
+
+## ASP.NET Core / .NET
+bin/
+obj/
+*.user
+.vs/
+appsettings.Development.json
+
+## IDE
+.vscode/settings.json
+.idea/
+
+## Secrets (絶対にコミットしない)
+*.pfx
+*.p12
+.env
+.env.local
+.env.*.local
+secrets.json
+# .env.example はテンプレートとしてコミット対象
+
+## Node.js (MCP サーバー)
+node_modules/
