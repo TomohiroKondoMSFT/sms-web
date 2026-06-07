@@ -1,0 +1,57 @@
+@page
+@model SmsWeb.Pages.Student.ProfileModel
+@{
+    ViewData["Title"] = "プロフィール";
+}
+
+<div class="container mt-4" style="max-width:600px">
+    <h2>プロフィール</h2>
+
+    @if (Model.StudentData == null)
+    {
+        <div class="alert alert-warning">プロフィール情報が見つかりません。管理者にお問い合わせください。</div>
+    }
+    else
+    {
+        <table class="table table-bordered">
+            <tr><th class="table-light" style="width:40%">氏名</th><td>@Model.StudentData.FullName</td></tr>
+            <tr><th class="table-light">学籍番号</th><td>@Model.StudentData.Roll</td></tr>
+            <tr><th class="table-light">クラス</th><td>@Model.StudentData.Class</td></tr>
+            <tr><th class="table-light">学科</th><td>@Model.StudentData.Faculty</td></tr>
+            <tr><th class="table-light">年齢</th><td>@Model.StudentData.Age</td></tr>
+            <tr><th class="table-light">性別</th><td>@(Model.StudentData.Gender == "M" ? "男性" : Model.StudentData.Gender == "F" ? "女性" : "-")</td></tr>
+            <tr><th class="table-light">住所</th><td>@Model.StudentData.Address</td></tr>
+            <tr><th class="table-light">電話番号</th><td>@Model.StudentData.PhoneNo</td></tr>
+        </table>
+
+        <h4 class="mt-4">出席状況（直近10件）</h4>
+        @if (!Model.RecentAttendances.Any())
+        {
+            <p class="text-muted">出席記録がありません。</p>
+        }
+        else
+        {
+            <table class="table table-sm table-striped">
+                <thead><tr><th>日付</th><th>状況</th></tr></thead>
+                <tbody>
+                    @foreach (var a in Model.RecentAttendances)
+                    {
+                        <tr>
+                            <td>@a.Date.ToString("yyyy/MM/dd")</td>
+                            <td>
+                                @if (a.IsPresent)
+                                {
+                                    <span class="badge bg-success">出席</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">欠席</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+</div>

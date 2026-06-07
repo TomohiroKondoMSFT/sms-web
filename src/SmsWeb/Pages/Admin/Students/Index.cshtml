@@ -1,0 +1,51 @@
+@page
+@model SmsWeb.Pages.Admin.Students.IndexModel
+@{
+    ViewData["Title"] = "生徒一覧（Admin）";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>生徒一覧</h2>
+        <a asp-page="Create" class="btn btn-primary">＋ 生徒を追加</a>
+    </div>
+
+    @if (!Model.Students.Any())
+    {
+        <div class="alert alert-info">生徒が登録されていません。</div>
+    }
+    else
+    {
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>学籍番号</th>
+                    <th>氏名</th>
+                    <th>クラス</th>
+                    <th>学科</th>
+                    <th>電話番号</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var s in Model.Students)
+                {
+                    <tr>
+                        <td>@s.Roll</td>
+                        <td>@s.FullName</td>
+                        <td>@s.Class</td>
+                        <td>@s.Faculty</td>
+                        <td>@s.PhoneNo</td>
+                        <td>
+                            <a asp-page="Edit" asp-route-id="@s.Id" class="btn btn-sm btn-outline-secondary">編集</a>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@s.Id" class="d-inline"
+                                  onsubmit="return confirm('@s.FullName を削除しますか？')">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">削除</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

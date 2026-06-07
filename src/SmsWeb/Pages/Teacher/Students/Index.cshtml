@@ -1,0 +1,41 @@
+@page
+@model SmsWeb.Pages.Teacher.Students.IndexModel
+@{
+    ViewData["Title"] = "生徒一覧（Teacher）";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>生徒一覧</h2>
+        <a asp-page="/Teacher/Attendance/Index" class="btn btn-success">出席入力へ</a>
+    </div>
+
+    @if (!Model.Students.Any())
+    {
+        <div class="alert alert-info">生徒が登録されていません。</div>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>学籍番号</th>
+                    <th>氏名</th>
+                    <th>クラス</th>
+                    <th>学科</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var s in Model.Students)
+                {
+                    <tr>
+                        <td>@s.Roll</td>
+                        <td>@s.FullName</td>
+                        <td>@s.Class</td>
+                        <td>@s.Faculty</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

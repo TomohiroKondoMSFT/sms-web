@@ -1,0 +1,63 @@
+@page
+@model SmsWeb.Pages.Admin.Students.CreateModel
+@{
+    ViewData["Title"] = "生徒登録";
+}
+
+<div class="container mt-4" style="max-width:600px">
+    <h2>生徒登録</h2>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Student.FullName" class="form-label"></label>
+            <input asp-for="Student.FullName" class="form-control" />
+            <span asp-validation-for="Student.FullName" class="text-danger"></span>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label asp-for="Student.Age" class="form-label"></label>
+                <input asp-for="Student.Age" class="form-control" type="number" />
+            </div>
+            <div class="col">
+                <label asp-for="Student.Gender" class="form-label"></label>
+                <select asp-for="Student.Gender" class="form-select">
+                    <option value="">選択</option>
+                    <option value="M">男性</option>
+                    <option value="F">女性</option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Student.Address" class="form-label"></label>
+            <input asp-for="Student.Address" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Student.PhoneNo" class="form-label"></label>
+            <input asp-for="Student.PhoneNo" class="form-control" />
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label asp-for="Student.Class" class="form-label"></label>
+                <input asp-for="Student.Class" class="form-control" type="number" />
+                <span asp-validation-for="Student.Class" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <label asp-for="Student.Roll" class="form-label"></label>
+                <input asp-for="Student.Roll" class="form-control" type="number" />
+                <span asp-validation-for="Student.Roll" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Student.Faculty" class="form-label"></label>
+            <input asp-for="Student.Faculty" class="form-control" />
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">登録</button>
+            <a asp-page="Index" class="btn btn-outline-secondary">キャンセル</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

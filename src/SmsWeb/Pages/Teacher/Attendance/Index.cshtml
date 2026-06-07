@@ -1,0 +1,57 @@
+@page
+@model SmsWeb.Pages.Teacher.Attendance.IndexModel
+@{
+    ViewData["Title"] = "出席入力";
+}
+
+<div class="container mt-4" style="max-width:700px">
+    <h2>出席入力</h2>
+
+    <form method="get" class="row g-2 mb-4">
+        <div class="col-auto">
+            <label class="col-form-label">日付</label>
+        </div>
+        <div class="col-auto">
+            <input type="date" name="date" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" class="form-control" />
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-outline-primary">表示</button>
+        </div>
+    </form>
+
+    @if (Model.Items.Any())
+    {
+        <form method="post">
+            <input type="hidden" name="date" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>学籍番号</th>
+                        <th>氏名</th>
+                        <th class="text-center">出席</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Items.Count; i++)
+                    {
+                        <tr>
+                            <td>@Model.Items[i].Roll</td>
+                            <td>@Model.Items[i].FullName</td>
+                            <td class="text-center">
+                                <input type="hidden" name="inputs[@i].StudentId" value="@Model.Items[i].StudentId" />
+                                <input type="checkbox" name="inputs[@i].IsPresent" value="true"
+                                       @(Model.Items[i].IsPresent ? "checked" : "") class="form-check-input" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary">保存</button>
+            <a asp-page="/Teacher/Students/Index" class="btn btn-outline-secondary ms-2">戻る</a>
+        </form>
+    }
+    else
+    {
+        <div class="alert alert-info">生徒が登録されていません。</div>
+    }
+</div>
