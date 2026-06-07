@@ -18,10 +18,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<Student>()
-            .Property(s => s.Id)
-            .UseIdentityColumn(seed: 1001, increment: 1);
-
         builder.Entity<Attendance>()
             .HasIndex(a => new { a.StudentId, a.Date })
             .IsUnique();
