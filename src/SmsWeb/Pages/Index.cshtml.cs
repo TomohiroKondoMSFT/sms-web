@@ -12,8 +12,17 @@ public class IndexModel : PageModel
         _logger = logger;
     }
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
-
+        if (User.Identity?.IsAuthenticated == true)
+        {
+            if (User.IsInRole("Admin"))
+                return RedirectToPage("/Admin/Students/Index");
+            if (User.IsInRole("Teacher"))
+                return RedirectToPage("/Teacher/Students/Index");
+            if (User.IsInRole("Student"))
+                return RedirectToPage("/Student/Profile");
+        }
+        return Page();
     }
 }
