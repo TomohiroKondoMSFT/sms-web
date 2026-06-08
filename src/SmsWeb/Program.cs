@@ -31,9 +31,11 @@ builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
-// シードデータ（デモ用アカウント作成）
+// マイグレーション自動適用 + シードデータ（デモ用アカウント作成）
 using (var scope = app.Services.CreateScope())
 {
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    await db.Database.MigrateAsync();
     await SeedData.InitializeAsync(scope.ServiceProvider);
 }
 
